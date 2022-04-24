@@ -29,6 +29,8 @@ spec:
               protocol: UDP
             - containerPort: 7780
               protocol: UDP
+            - containerPort: 7781
+              protocol: UDP
           resources: {}
           volumeMounts:
             - mountPath: /launcher/appsettings.json

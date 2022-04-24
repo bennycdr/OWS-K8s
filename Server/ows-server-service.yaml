@@ -20,6 +20,10 @@ spec:
       port: 7780
       protocol: UDP
       targetPort: 7780
+    - name: "7781-udp"
+      port: 7781
+      protocol: UDP
+      targetPort: 7781
   selector:
     game: ueserver
 status:
