@@ -1,0 +1,8 @@
+.vs/**
+*.key
+*.cer
+*.crt 
+*.der
+*.p7b
+*.pem
+ows-secret*.yaml

@@ -1,0 +1,82 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ows-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Forwarded-For $http_x_forwarded_for";
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - ows.milab.local
+    - status.milab.local
+    - api.milab.local
+    - im.milab.local
+    - cp.milab.local
+    - rabbitmq.milab.local
+
+    secretName: ows-tls2
+  rules:
+  - host: "ows.milab.local"
+    http:
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: owspublicapi
+              port:
+                number: 44302
+  - host: "status.milab.local"
+    http:
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: owsstatus
+              port:
+                number: 44102
+  - host: "api.milab.local"
+    http:
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: owspublicapi
+              port:
+                number: 44302
+  - host: "rabbitmq.milab.local"
+    http:
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: rabbitmq
+              port:
+                number: 15672
+  - host: "im.milab.local"
+    http:
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: owsinstancemanagement
+              port:
+                number: 44328
+  - host: "cp.milab.local"
+    http:
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            service:
+              name: owscharacterpersistence
+              port:
+                number: 44323
+          

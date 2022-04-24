@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ueserver-launcher-configmap-prod
+  namespace: default
+data:
+  appsettings.json : |
+    {
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft": "Warning",
+          "Microsoft.Hosting.Lifetime": "Information"
+        }
+      },
+      "AllowedHosts": "*",
+      "RabbitMQOptions": {
+        "RabbitMQHostName": "rabbitmq",
+        "RabbitMQPort": 5672,
+        "RabbitMQUserName": "dev",
+        "RabbitMQPassword": "test"
+      },
+      "OWSInstanceLauncherOptions": {
+        "OWSAPIKey": "89F04BD1-9F7C-469A-A348-0E6EAC2B78B9",
+        "ServerIP": "192.168.201.111",
+        "MaxNumberOfInstances": 10,
+        "InternalServerIP": "192.168.201.111",
+        "StartingInstancePort": 7778,
+        "PathToDedicatedServer": "/ue5/LinuxServer/OpenWorldStarter/Binaries/Linux/OpenWorldStarterServer",
+        "ServerArguments": "{0}?listen -server -log -nosteam -messaging -port={1} -launcherguid={2}",
+        "RunServerHealthMonitoringFrequencyInSeconds": 30
+      },
+      "OWSAPIPathConfig": {
+        "InternalPublicApiURL": "http://owspublicapi:44302/",
+        "InternalInstanceManagementApiURL": "http://owsinstancemanagement:44328/",
+        "InternalCharacterPersistenceApiURL": "http://owscharacterpersistence:44323/"
+      },
+      "Kestrel": {
+        "Endpoints": {
+          "Http": {
+            "Url": "http://localhost:8181"
+          }
+        }
+      }
+    }
+  

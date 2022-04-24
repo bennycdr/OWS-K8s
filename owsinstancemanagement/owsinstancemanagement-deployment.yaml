@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: owsinstancemanagement
+  name: owsinstancemanagement
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: owsinstancemanagement
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: owsinstancemanagement
+    spec:
+      containers:
+        - image: public.ecr.aws/b6i2a6j1/futurecloud:owsinstancemanagement-linux-latest
+          imagePullPolicy: Always
+          name: owsinstancemanagement
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          resources: {}
+          volumeMounts:
+            - mountPath: /app/appsettings.json
+              subPath: appsettings.json
+              name: owsinstancemanagement-appsettings
+      volumes:
+        - name: owsinstancemanagement-appsettings
+          configMap:
+            name: owsinstancemanagement-configmap
+      restartPolicy: Always
+status: {}

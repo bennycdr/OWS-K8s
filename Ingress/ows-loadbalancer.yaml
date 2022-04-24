@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: owspublicapi
+  name: owspublicapi
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "http"
+      port: 44302
+      targetPort: 80
+    - name: "https"
+      port: 44303
+      targetPort: 443
+  selector:
+    io.kompose.service: owspublicapi
+status:
+  loadBalancer: {}

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    game: ueserver
+  name: ueserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      game: ueserver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+      labels:
+        game: ueserver
+    spec:
+      containers:
+        - image: ows.milab.local:4433/ueserver:latest
+          imagePullPolicy: IfNotPresent
+          name: ueserver
+          ports:
+            - containerPort: 7778
+              protocol: UDP
+            - containerPort: 7779
+              protocol: UDP
+            - containerPort: 7780
+              protocol: UDP
+          resources: {}
+          volumeMounts:
+            - mountPath: /launcher/appsettings.json
+              subPath: appsettings.json
+              name: ueserver-launcher-configmap-vol
+      restartPolicy: Always
+      volumes:
+        - name: ueserver-launcher-configmap-vol
+          configMap:
+            name: ueserver-launcher-configmap
+status: {}

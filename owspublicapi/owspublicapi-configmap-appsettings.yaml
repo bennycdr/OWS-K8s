@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: owspublicapi-configmap
+data:
+  appsettings.json: |-
+    {
+    "Logging": {
+        "LogLevel": {
+        "Default": "Warning"
+        }
+    },
+    "AllowedHosts": "*",
+    "OWSPublicAPIConfig": {
+        "SecondsToWaitForServerSpinUp": 45,
+        "SecondsToWaitInBetweenSpinUpPolling": 2,
+        "SecondsToWaitBeforeFirstPollForSpinUp": 5
+    },
+    "OWSAPIPathConfig": {
+        "InternalPublicApiURL": "http://owspublicapi-svc:44302/",
+        "InternalInstanceManagementApiURL": "http://owsinstancemanagement:44328/",
+        "InternalCharacterPersistenceApiURL": "http://owscharacterpersistence:44323/"
+    },
+    "OWSStorageConfig": {
+        "OWSDBConnectionString": "Server=mssql;Database=OpenWorldServer;User Id=SA;Password=yourStrong(!)Password;ConnectRetryCount=0"
+    },
+
+    "ExternalLoginProviderConfig": {
+
+        "EpicOnlineServices": {
+        "ClientId": "",
+        "ClientSecret": "",
+        "DeploymentId": "",
+        "RedirectUri": ""
+        }
+    }
+
+    }

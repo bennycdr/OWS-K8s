@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: owsstatus-configmap
+data:
+  appsettings.json: |-
+    {
+      "OWSSTATUS_URI": "http://owsstatus:44102",
+      "PATH_BASE": "",
+      "HealthChecks-UI": {
+        "KubernetesDiscoveryService": {
+          "Enabled": false
+        },
+        "HealthChecks": [
+          {
+            "Name": "OWSPublicApi",
+            "Uri": "http://owspublicapi-svc:44302/hc"
+          },
+          {
+            "Name": "OWSInstanceManagement",
+            "Uri": "http://owsinstancemanagement:44328/hc"
+          },
+          {
+            "Name": "OWSCharacterPersistence",
+            "Uri": "http://owscharacterpersistence:44323/hc"
+          }
+        ],
+        "Webhooks": [
+          {
+            "Name": "",
+            "Uri": "",
+            "Payload": "",
+            "RestoredPayload": ""
+          }
+        ],
+        "EvaluationTimeinSeconds": 10,
+        "MinimumSecondsBetweenFailureNotifications": 60
+      }
+    }
